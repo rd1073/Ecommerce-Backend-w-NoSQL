@@ -52,10 +52,11 @@ This project implements an e-commerce marketplace using MongoDB, Express.js and 
   - Retrieve the list of orders received by a seller
 
 
-### Tech Stacl
+### Tech Stack and System Prerequisites
 
 - Node.js
 - MongoDB
+- nodemon
 
 ### Installation and Running
 
