@@ -1,4 +1,4 @@
-const { User,  Catalog }=require("../config/db")
+const { User,  Catalog , Order}=require("../config/db")
 
 
 
@@ -32,5 +32,19 @@ const CreateCatalog = async (req, res) => {
         res.status(500).json({ msg: 'Internal Server Error' });
       }
   }; 
+  const GetMyOrders = async (req, res) => {
+    try {
+      const sellerId = req.user.id;  
+      const orders = await Order.find({ seller: sellerId }).populate('products', 'buyer name price');
+  if(!orders){
+    console.log("no orders for this seller")
+  }
+      res.status(200).json(orders);
+    } catch (error) {
+      console.error('Error getting user orders:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
 
-  module.exports = { CreateCatalog };
+
+  module.exports = { CreateCatalog, GetMyOrders };
