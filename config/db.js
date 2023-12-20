@@ -32,10 +32,41 @@ const userSchema = new mongoose.Schema({
   const Catalog = conn.model('Catalog', catalogSchema);
 
 
+  const orderSchema = new mongoose.Schema({
+    buyer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+    products: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
+    
+    orderDate: {
+      type: Date,
+      default: Date.now,
+    },
+  });
   
+  const Order = conn.model('Order', orderSchema);
 
    
-  module.exports = { User, Catalog, conn };
+  module.exports = { User, Catalog, conn, Order };
 
 
 
